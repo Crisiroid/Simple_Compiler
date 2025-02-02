@@ -1,0 +1,16 @@
+Program
+  Var a;
+  Var b;
+  Start
+    Read(a);
+    Read(b);
+    If (a > b)
+    {
+      Print(a);
+    }
+    If (a < b)
+    {
+      Print(b);
+    }
+  End
+end

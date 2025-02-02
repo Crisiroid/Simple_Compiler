@@ -1,0 +1,2 @@
+program Var Identifier ; Start Start print (Integer) ; End
+Read (Identifier); End end
