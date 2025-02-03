@@ -1,0 +1,6 @@
+Program
+    Var ; 
+        Start
+       Read (x); 
+    End
+end
