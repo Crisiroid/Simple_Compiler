@@ -1,0 +1,14 @@
+Program
+Var x;
+Var y;
+Start
+    Read(x);
+    Put y = x + 10;
+    If (x > y) {
+        Print(x);
+    }
+    Iteration (x < y) {
+        Print(y);
+    }
+End
+end
