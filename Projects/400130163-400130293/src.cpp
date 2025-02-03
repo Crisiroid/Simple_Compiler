@@ -130,9 +130,80 @@ void printTokens(const vector<Token>& tokens) {
     }
 }
 
+struct SymbolTable {
+    struct VariableInfo {
+        int value;
+        bool assigned;
+    };
+
+    map<string, VariableInfo> variables;
+
+    void declareVariable(const string& name) {
+        if (variables.find(name) != variables.end()) {
+            cout << "Error: Variable '" << name << "' is already declared!\n";
+        }
+        else {
+            variables[name] = { 0, false };
+        }
+    }
+
+    void assignVariable(const string& name, int value) {
+        if (variables.find(name) == variables.end()) {
+            cout << "Error: Variable '" << name << "' is not declared!\n";
+        }
+        else {
+            variables[name] = { value, true };
+        }
+    }
+
+    int getValue(const string& name) {
+        if (variables.find(name) == variables.end()) {
+            cout << "Error: Variable '" << name << "' is not declared!\n";
+            return 0;
+        }
+        if (!variables[name].assigned) {
+            cout << "Error: Variable '" << name << "' is used before assignment!\n";
+            return 0;
+        }
+        return variables[name].value;
+    }
+};
+
+void parseTokens(const vector<Token>& tokens, SymbolTable& symTable) {
+    for (size_t i = 0; i < tokens.size(); i++) {
+        if (tokens[i].type == KEYWORD) {
+            if (tokens[i].value == "Var") {
+                if (i + 1 < tokens.size() && tokens[i + 1].type == IDENTIFIER) {
+                    symTable.declareVariable(tokens[i + 1].value);
+                    i++;
+                }
+                else {
+                    cout << "Syntax Error: Expected identifier after 'Var' at line " << tokens[i].line << "\n";
+                }
+            }
+            else if (tokens[i].value == "Print") {
+                if (i + 2 < tokens.size() && tokens[i + 1].type == SEPARATOR && tokens[i + 1].value == "(" &&
+                    tokens[i + 2].type == IDENTIFIER) {
+                    cout << tokens[i + 2].value << " = " << symTable.getValue(tokens[i + 2].value) << "\n";
+                    i += 3;
+                }
+                else {
+                    cout << "Syntax Error: Incorrect Print statement at line " << tokens[i].line << "\n";
+                }
+            }
+        }
+    }
+}
+
 int main() {
-    string code = "Program Var x;\nStart Print(x);\nEnd";
+    string code = "Program Var x;\nStart Print 23;\nEnd";
+
     vector<Token> tokens = lexicalAnalyzer(code);
+
     printTokens(tokens);
+
+    SymbolTable symTable;
+    parseTokens(tokens, symTable);
+
     return 0;
 }
