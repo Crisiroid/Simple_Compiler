@@ -1,0 +1,10 @@
+Program
+  Var x;
+  Var y;
+  Start
+    Read(x);
+    Read(y);
+    Put x = x + y;
+    Print(x);
+  End
+end

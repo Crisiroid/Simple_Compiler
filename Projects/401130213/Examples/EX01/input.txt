@@ -1,0 +1,2 @@
+Program Var
+ x +; Start Print(x); End end
