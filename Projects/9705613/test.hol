@@ -1,0 +1,6 @@
+Program
+Var x12_5;
+Start
+    Put x = 10;
+    Print(x);
+End
