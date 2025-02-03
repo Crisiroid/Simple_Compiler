@@ -1,0 +1,5 @@
+Program
+Start
+  Print ( 123 );
+End
+End

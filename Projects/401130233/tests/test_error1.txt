@@ -1,0 +1,7 @@
+Program
+Var a
+Var b;
+Start
+  Print ( a );
+End
+End
